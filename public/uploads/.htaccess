@@ -1,0 +1,2 @@
+# Запретить листинг директорий, выполнение CGI скриптов
+Options All -ExecCGI -Indexes -Includes
