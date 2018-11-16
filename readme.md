@@ -21,3 +21,9 @@ php artisan storage:link
 MAIL_DRIVER=log
 MAIL_FROM_ADDRESS=admin@pmhelper.com
 ```
+
+Сгенерируйте ключ приложения (может понадобиться очистка кэша конфига)
+```
+php artisan key:generate
+php artisan config:cache
+```
