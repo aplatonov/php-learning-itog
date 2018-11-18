@@ -30,4 +30,9 @@ class Projects extends Model
     {
     	return $this->belongsTo('App\Users', 'owner_id', 'id');
     }
+
+    public function projectMarks()
+    {
+        return $this->hasMany('App\ProjectMark', 'project_id', 'id');
+    }
 }

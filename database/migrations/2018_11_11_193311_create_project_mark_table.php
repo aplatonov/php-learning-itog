@@ -17,7 +17,6 @@ class CreateProjectMarkTable extends Migration
             $table->increments('id');
             $table->integer('project_id')->unsigned();
             $table->string('name', 150);
-            $table->text('description')->nullable();
             $table->date('finish_date')->nullable();
             $table->boolean('is_done')->default(false);
             $table->timestamps();

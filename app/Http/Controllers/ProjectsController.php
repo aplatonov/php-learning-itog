@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ProjectMark;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -144,6 +145,30 @@ class ProjectsController extends Controller
                 }
             }
 
+            //сохраняем чек-лист проекта
+            if ($form['isUpdate'] == 1) {
+                ProjectMark::where('project_id', $project_id)->delete();
+            }
+            if (isset($form['mark_name'])) {
+                foreach ($form['mark_name'] as $mark_id => $mark_name) {
+                    // сохраняем только не пустые пункты
+                    if (!empty($mark_name)) {
+                        // если дата в неправильном формате присваиваем ей значение даты финиша проекта
+                        $return_date = $form['mark_finish_date'][$mark_id];
+                        $d = \DateTime::createFromFormat('Y-m-d', $return_date);
+                        if (!$d || !$d->format('Y-m-d') == $return_date) {
+                            $return_date = $project->finish_date;
+                        }
+                        ProjectMark::create([
+                            'project_id' => $project_id,
+                            'name' => $mark_name,
+                            'finish_date' => $return_date,
+                            'is_done' => array_key_exists($mark_id, $form['mark_done'])
+                        ]);
+                    }
+                }
+            }
+
         } 
 
         if ($form['isUpdate'] == 1) {
@@ -245,11 +270,13 @@ class ProjectsController extends Controller
         $project['technologies'] = $project->projectTechnologies->keyBy('id')->keys()->toArray();
         $technologies = Technology::where('active', true)->get();
         $specialities = Speciality::where('active', true)->get();
+        $marks = $project->projectMarks;
         if (Auth::user()->isAdmin() || Auth::user()->id == $project->owner_id) {
             return view('edit-project')->with([
                 'project' => $project,
                 'technologies' => $technologies,
-                'specialities' => $specialities]
+                'specialities' => $specialities,
+                'marks' => $marks]
         );
         } else  {
             return redirect()->back()->with('message', 'Недостаточно прав для редактирования проекта');

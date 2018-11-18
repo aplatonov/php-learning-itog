@@ -13,7 +13,7 @@ class ProjectMark extends Model
      * @var array
      */
     protected $fillable = [
-        'project_id', 'name', 'description', 'finish_date', 'is_done',
+        'project_id', 'name', 'finish_date', 'is_done',
     ];
 
     public function project()

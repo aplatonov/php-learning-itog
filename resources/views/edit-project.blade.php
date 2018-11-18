@@ -168,6 +168,32 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="box">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Чек-лист проекта</h3>
+                                        @if ($errors->has('project_marks'))
+                                            <br>
+                                            <span class="text-danger">
+                                                <strong><small>{{ $errors->first('project_marks') }}</small></strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                    <div class="box-body">
+                                        @foreach ($marks as $mark)
+                                            <div class="form-group col-xs-12">
+                                                <div class="input-group col-xs-12">
+                                                    <span class="input-group-addon">
+                                                        <input type="checkbox" id="mark_done{{ $mark->id }}" name="mark_done[{{ $mark->id }}]" {{ $mark->is_done ? 'checked' : ''}} value="{{ $mark->id }}">
+                                                    </span>
+                                                    <input class="form-control" type="text" id="mark_name{{ $mark->id }}" name="mark_name[{{ $mark->id }}]" value="{{ $mark->name }}">
+                                                    <input class="form-control" type="text" id="mark_finish_date{{ $mark->id }}" name="mark_finish_date[{{ $mark->id }}]" value="{{ $mark->finish_date }}">
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                        <button type="button" class="btn btn-info pull-right" onclick="">Добавить пункт</button>
+                                    </div>
+                                </div>
                             </div>
                             <!-- right column END -->
                         </div>
@@ -188,20 +214,11 @@
 @section('jscripts')
     <script type="text/javascript">
         $(function () {
-          $('#start_date').datepicker({
-            format: "yyyy-mm-dd",
-            weekStart: 1,
-            autoClose: true
+            $('[id*="date"]').datepicker({
+                format: "yyyy-mm-dd",
+                weekStart: 1,
+                autoClose: true
+            });
         });
-      });
-    </script>
-    <script type="text/javascript">
-        $(function () {
-          $('#finish_date').datepicker({
-            format: "yyyy-mm-dd",
-            weekStart: 1,
-            autoClose: true
-        });
-      });
     </script>
 @endsection
