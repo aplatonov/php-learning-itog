@@ -179,9 +179,18 @@
                                             </span>
                                         @endif
                                     </div>
-                                    <div class="box-body">
+                                    <div class="box-body data-checklist-container">
+                                        <div class="form-group col-xs-12 data-checklist-row hidden">
+                                            <div class="input-group col-xs-12">
+                                                    <span class="input-group-addon">
+                                                        <input type="checkbox" name="mark_done[]">
+                                                    </span>
+                                                <input class="form-control" type="text" name="mark_name[]">
+                                                <input class="form-control" type="text" id="mark_finish_date" name="mark_finish_date[]">
+                                            </div>
+                                        </div>
                                         @foreach ($marks as $mark)
-                                            <div class="form-group col-xs-12">
+                                            <div class="form-group col-xs-12 data-checklist-row-visible">
                                                 <div class="input-group col-xs-12">
                                                     <span class="input-group-addon">
                                                         <input type="checkbox" id="mark_done{{ $mark->id }}" name="mark_done[{{ $mark->id }}]" {{ $mark->is_done ? 'checked' : ''}} value="{{ $mark->id }}">
@@ -191,7 +200,9 @@
                                                 </div>
                                             </div>
                                         @endforeach
-                                        <button type="button" class="btn btn-info pull-right" onclick="">Добавить пункт</button>
+                                    </div>
+                                    <div class="box-footer with-border">
+                                        <button type="button" class="btn btn-xs btn-info pull-right" onclick="addNewTask()">Добавить пункт</button>
                                     </div>
                                 </div>
                             </div>
@@ -220,5 +231,23 @@
                 autoClose: true
             });
         });
+    </script>
+
+    <script type="text/javascript">
+        function addNewTask() {
+            $row = $(".data-checklist-row")
+                .clone()
+                .removeClass("hidden")
+                .removeClass("data-checklist-row")
+                .addClass("data-checklist-row-visible");
+            $row.find("#mark_finish_date")
+                .attr('id', "mark_finish_date_" + (+$(".data-checklist-row-visible").length + 1))
+                .datepicker({
+                    format: "yyyy-mm-dd",
+                    weekStart: 1,
+                    autoClose: true
+                });
+            $row.appendTo(".data-checklist-container");
+        }
     </script>
 @endsection
