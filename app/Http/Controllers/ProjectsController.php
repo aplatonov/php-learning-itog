@@ -163,7 +163,7 @@ class ProjectsController extends Controller
                             'project_id' => $project_id,
                             'name' => $mark_name,
                             'finish_date' => $return_date,
-                            'is_done' => array_key_exists($mark_id, $form['mark_done'])
+                            'is_done' => isset($form['mark_done']) ? array_key_exists($mark_id, $form['mark_done']) : 0
                         ]);
                     }
                 }
@@ -270,7 +270,7 @@ class ProjectsController extends Controller
         $project['technologies'] = $project->projectTechnologies->keyBy('id')->keys()->toArray();
         $technologies = Technology::where('active', true)->get();
         $specialities = Speciality::where('active', true)->get();
-        $marks = $project->projectMarks;
+        $marks = $project->projectMarks->sortBy('finish_date');
         if (Auth::user()->isAdmin() || Auth::user()->id == $project->owner_id) {
             return view('edit-project')->with([
                 'project' => $project,
