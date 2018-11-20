@@ -32,11 +32,6 @@ class Users extends Model
         return $this->hasMany('App\Projects', 'owner_id', 'id');
     }
 
-    public function personal()
-    {
-        return $this->hasMany('App\Personal', 'user_id', 'id');
-    }
-
     public function comments()
     {
         return $this->hasMany('App\Comments', 'company_id', 'id');
