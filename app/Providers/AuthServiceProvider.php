@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Laravel\Passport\Passport;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -36,5 +37,7 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('user-unconfirmed', function ($user) {
             return $user->isUnconfirmedUser() || $user->isValidUser() || $user->isAdmin();
         });
+
+        Passport::routes();
     }
 }

@@ -213,12 +213,12 @@ class ProjectsController extends Controller
         }
         else
         {
-            //пользователю показываем незаблокированных специалистов и его собственнные заблокированные
-            $projects = Projects::where('active', 1);
             if (\Route::currentRouteName() == 'userProjects') {
+                $projects = Projects::whereIn('active', [0, 1]);
                 $projects = $projects->where('owner_id', Auth::user()->id);
                 $data['title'] = Auth::user()->name;
             } else {
+                $projects = Projects::where('active', 1);
                 $projects = $projects
                     ->orWhere(function ($query) {
                         $query->where('owner_id', Auth::user()->id)
