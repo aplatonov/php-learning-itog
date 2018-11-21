@@ -17,5 +17,7 @@ Route::post('register', 'Api\UserController@register');
 Route::post('login', 'Api\UserController@login');
 
 Route::middleware('auth:api')->group( function () {
+    Route::get('users', 'Api\UserController@index');
+    Route::get('user/{id}/confirm', 'Api\UserController@confirm');
     Route::resource('projects', 'Api\ProjectController');
 });

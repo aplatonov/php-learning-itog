@@ -63,4 +63,36 @@ class UserController extends BaseController
             return $this->sendError('Unauthorised.', [],401);
         }
     }
+
+    /**
+     * list users api
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $users = User::select(['id', 'login', 'name', 'phone', 'valid', 'confirmed', 'last_login'])->get();
+
+        return $this->sendResponse($users->toArray(), 'Users retrieved successfully.');
+    }
+
+    /**
+     * confirm user api
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function confirm($id)
+    {
+        $user = User::find($id);
+        if (Auth::user()->isAdmin() && $user) {
+            $user->confirmed = 1;
+            $user->save();
+            return $this->sendResponse(
+                array_only($user->toArray(), ['id', 'name']),
+                'User confirmed successfully.'
+            );
+        }
+
+        return $this->sendError('Operation not permit.', [],401);
+    }
 }
