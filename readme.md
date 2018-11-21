@@ -43,10 +43,10 @@ php artisan passport:install
 ```
 ##### Api-ресурсы
 ###### Пользователи (менеджеры)
-Login: POST, `$URL%/api/login` (parameters: login, password)  
-Register: POST, `$URL%/api/register` (parameters: login, email, password, password_confirmation, name, contact_person, phone)  
-List: GET, `$URL%/api/users` (headers: Authorization "Bearer %token%", Accept "application/json") (далее во всех ресурсах, требующих авторизации передаются эти заголовки)   
-Confirm user: GET, `$URL%/api/user/{id}/confirm` (headers...)  
+Login: POST, `%URL%/api/login` (parameters: login, password)  
+Register: POST, `%URL%/api/register` (parameters: login, email, password, password_confirmation, name, contact_person, phone)  
+List: GET, `%URL%/api/users` (headers: Authorization "Bearer %token%", Accept "application/json") (далее во всех ресурсах, требующих авторизации передаются эти заголовки)   
+Confirm user: GET, `%URL%/api/user/{id}/confirm` (headers...)  
 ###### Проекты
-List: GET, `$URL%/api/projects` (headers...)   
-Show project: GET, `$URL%/api/projects/{id}` (headers...)
+List: GET, `%URL%/api/projects` (headers...)   
+Show project: GET, `%URL%/api/projects/{id}` (headers...)

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\ProjectsHasTechnology;
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController as BaseController;
 use App\Projects;
@@ -58,33 +59,45 @@ class ProjectController extends BaseController
      */
     public function store(Request $request)
     {
-        /*$input = $request->all();
+        $input = $request->all();
 
         $validator = Validator::make($input, [
-            'name' => 'required',
-            'detail' => 'required'
-        ]);
-
-        $this->validate($request, [
             'project_name' => 'required|min:2|max:150',
             'description' => 'required',
             'speciality_id' => 'required|integer|min:1',
             'doc' => 'file|max:1000|mimes:pdf,doc,docx,rtf',
             'start_date' => 'date|nullable',
             'finish_date' => 'date|nullable',
-            'technologies' => 'present'
         ], [
             'project_name.required' => 'Название проекта обязательно к заполненнию',
             'speciality_id.min' => 'Необходимо выбрать специализацию',
-            'technologies.present' => 'Укажите требуемые технологии проекта'
         ]);
 
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors());
         }
 
-        $product = Product::create($input);
+        $input['owner_id'] = Auth::user()->id;
+        $input['active'] = isset($input['active']) ? 1 : 0;
 
-        return $this->sendResponse($product->toArray(), 'Product created successfully.');*/
+        $project = Projects::create($input);
+
+        if ($project) {
+            if (isset($input['technologies'])) {
+                $technologies = json_decode($input['technologies'], true);
+                foreach ($technologies as $technology_id => $technology_name) {
+                    ProjectsHasTechnology::create([
+                        'project_id' => $project->id,
+                        'technology_id' => $technology_id
+                    ]);
+                }
+            }
+
+            return $this->sendResponse($project->toArray(), 'Project created successfully.');
+        } else {
+            return $this->sendError('Store Error.');
+        }
+
+
     }
 }
