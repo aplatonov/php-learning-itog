@@ -335,6 +335,7 @@ class ProjectsController extends Controller
             try {
                 DB::beginTransaction();
                 ProjectsHasTechnology::where('project_id', $project->id)->delete();
+                ProjectMark::where('project_id', $project->id)->delete();
                 Storage::delete($project->doc);
                 $project->delete();
                 DB::commit();

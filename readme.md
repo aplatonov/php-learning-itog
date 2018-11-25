@@ -6,7 +6,7 @@
 - возможность оставлять отзывы о проекте в целом, о менеджере
 - оповещения пользователей о некоторых видах событий (просмотр информации о проекте, получение отзыва и пр.)
 - страница настроек приложения
-- TODO: restApi
+- restApi для пользователей, проектов
 - TODO: оповещение о пропущенных сроках проекта/задач из чеклиста
 
 #### Развернуть проект
@@ -49,4 +49,7 @@ List: GET, `%URL%/api/users` (headers: Authorization "Bearer %token%", Accept "a
 Confirm user: GET, `%URL%/api/user/{id}/confirm` (headers...)  
 ###### Проекты
 List: GET, `%URL%/api/projects` (headers...)   
-Show project: GET, `%URL%/api/projects/{id}` (headers...)
+Show project: GET, `%URL%/api/projects/{id}` (headers...)  
+Create project: POST, `%URL%/api/projects` (headers..., parameters: project_name, description, speciality_id)  
+Delete project: DELETE, `%URL%/api/projects/{id}` (headers...)  
+Update project: PUT, `%URL%/api/projects/{id}` (headers..., parameters: project_name, description, speciality_id)

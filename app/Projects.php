@@ -13,7 +13,7 @@ class Projects extends Model
      * @var array
      */
     protected $fillable = [
-        'project_name', 'description', 'speciality_id', 'doc', 'start_date', 'finish_date', 'owner_id', 'customer_id', 'active',
+        'project_name', 'description', 'speciality_id', 'doc', 'start_date', 'finish_date', 'owner_id', 'active',
     ];
 
     public function speciality()
