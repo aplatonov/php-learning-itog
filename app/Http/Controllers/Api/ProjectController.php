@@ -137,24 +137,31 @@ class ProjectController extends BaseController
     {
         //TODO доделать метод
 
-        $input = $request->all();
         $project = Projects::findOrFail($id);
+        if (Auth::check() && (Auth::user()->isAdmin() || Auth::user()->id == $project->owner_id)) {
+            $input = $request->all();
+            $validator = Validator::make($input, [
+                'project_name' => 'required|min:2|max:150',
+                'description' => 'required',
+                'speciality_id' => 'required|integer|min:1',
+                'start_date' => 'date|nullable',
+                'finish_date' => 'date|nullable',
+            ], [
+                'project_name.required' => 'Название проекта обязательно к заполненнию',
+                'speciality_id.min' => 'Необходимо выбрать специализацию',
+            ]);
 
-        // допустим админ или хозяин
+            if ($validator->fails()) {
+                return $this->sendError('Validation Error.', $validator->errors());
+            }
 
-        $validator = Validator::make($input, [
-            //...
-        ]);
+            $project->fill($input);
+            $project->save();
 
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors());
+            return $this->sendResponse($project->toArray(), 'Project updated successfully.');
+        } else {
+            return $this->sendError('Update Error. Unauthorized.');
         }
-
-        $project->name = $input['name'];
-        //...
-        $project->save();
-
-        return $this->sendResponse($project->toArray(), 'Project updated successfully.');
     }
 
 
