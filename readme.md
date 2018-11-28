@@ -69,5 +69,5 @@ List: GET, `%URL%/api/techs` (headers...)
 ###### Специализации (направления проектов)
 List: GET, `%URL%/api/specs` (headers...)
 ###### Чек-лист проекта      
-List: GET, `%URL%/api/projects/{id}/marks` (headers...)
+List: GET, `%URL%/api/projects/{id}/marks` (headers...)  
 Mark as completed: PUT, `%URL%/api/projects/{id}/marks/{id_mark}/done` (headers..., parameters: is_done)

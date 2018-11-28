@@ -102,6 +102,10 @@ class ComposerServiceProvider extends ServiceProvider
             $notes['allProjects'] = DB::table('projects')
                         ->where('active', true)
                         ->count();
+            $notes['allUsers'] = DB::table('users')
+                ->where('valid', true)
+                ->where('confirmed', true)
+                ->count();
 
             $eventsProj = DB::table('projects')
                         ->where('active', true)

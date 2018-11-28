@@ -205,7 +205,27 @@ class ProjectController extends BaseController
 
     public function setMarkIsDone(Request $request, $id, $id_mark)
     {
-        // TODO доделать
-        return $this->sendResponse(['id' => $id, 'id_mark' => $id_mark] , '... successfully. Method not completed yet :)');
+        $project = Projects::findOrFail($id);
+
+        if (Auth::check() && (Auth::user()->isAdmin() || Auth::id() == $project->owner_id)) {
+            $input = $request->all();
+            $validator = Validator::make($input, [
+                'is_done' => 'boolean',
+            ]);
+
+            if ($validator->fails()) {
+                return $this->sendError('Validation Error.', $validator->errors());
+            }
+
+            $mark = $project->projectMarks()->find($id_mark);
+            if ($mark) {
+                $mark->fill(['is_done' => $request->query('is_done', 1)]);
+                $mark->save();
+                return $this->sendResponse($mark->toArray(), 'Set project mark is_done successfully. Method not completed yet :)');
+            } else
+                return $this->sendError('Set project mark is_done error. Mark not found.');
+        } else {
+            return $this->sendError('Set project mark is_done error. Unauthorized.');
+        }
     }
 }

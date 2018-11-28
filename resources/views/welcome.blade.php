@@ -100,6 +100,27 @@
 
             <div class="row">
                 <div class="col-lg-6 col-xs-12">
+                    <div class="small-box bg-blue">
+                        <div class="inner">
+                            <p>
+                                <strong>Пользователей</strong>
+                            </p>
+                            <h3>{{ $notes['allUsers'] }}</h3>
+                            @can('user-valid')
+                                <p>
+                                    <small>&nbsp;<strong></strong></small>
+                                </p>
+                            @endcan
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-bookmark-o"></i>
+                        </div>
+                        @can('user-valid')
+                            <a href="/companies" class="small-box-footer">
+                                Все пользователи <i class="fa fa-arrow-circle-right"></i>
+                            </a>
+                        @endcan
+                    </div>
                 </div>
                 <div class="col-lg-6 col-xs-12">
                     <div class="small-box bg-green">
