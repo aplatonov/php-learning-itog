@@ -21,4 +21,9 @@ Route::middleware('auth:api')->group( function () {
     Route::get('user/{id}/confirm', 'Api\UserController@confirm');
 
     Route::resource('projects', 'Api\ProjectController');
+    Route::get('projects/{id}/marks', 'Api\ProjectController@indexMarks');
+    Route::put('projects/{id}/marks/{id_mark}/done', 'Api\ProjectController@setMarkIsDone');
+
+    Route::get('techs', 'Api\TechnologiesController@index');
+    Route::get('specs', 'Api\SpecialitiesController@index');
 });

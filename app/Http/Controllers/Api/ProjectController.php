@@ -135,27 +135,24 @@ class ProjectController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        //TODO доделать метод
-
         $project = Projects::findOrFail($id);
         if (Auth::check() && (Auth::user()->isAdmin() || Auth::user()->id == $project->owner_id)) {
             $input = $request->all();
             $validator = Validator::make($input, [
                 'project_name' => 'required|min:2|max:150',
                 'description' => 'required',
-                'speciality_id' => 'required|integer|min:1',
                 'start_date' => 'date|nullable',
                 'finish_date' => 'date|nullable',
             ], [
                 'project_name.required' => 'Название проекта обязательно к заполненнию',
-                'speciality_id.min' => 'Необходимо выбрать специализацию',
             ]);
 
             if ($validator->fails()) {
                 return $this->sendError('Validation Error.', $validator->errors());
             }
 
-            $project->fill($input);
+            // через api обновляем не все поля!
+            $project->fill(array_only($input, ['project_name', 'description', 'start_date', 'finish_date', 'active']));
             $project->save();
 
             return $this->sendResponse($project->toArray(), 'Project updated successfully.');
@@ -192,5 +189,23 @@ class ProjectController extends BaseController
         } else {
             return $this->sendError('Delete Error. Unauthorized.');
         }
+    }
+
+
+    public function indexMarks($id)
+    {
+        $project = Projects::findOrFail($id);
+
+        if (Auth::check() && (Auth::user()->isAdmin() || Auth::user()->id == $project->owner_id)) {
+            return $this->sendResponse($project->projectMarks()->get()->toArray(), 'Project marks retrieved successfully.');
+        } else {
+            return $this->sendError('Get project marks error. Unauthorized.');
+        }
+    }
+
+    public function setMarkIsDone(Request $request, $id, $id_mark)
+    {
+        // TODO доделать
+        return $this->sendResponse(['id' => $id, 'id_mark' => $id_mark] , '... successfully. Method not completed yet :)');
     }
 }
