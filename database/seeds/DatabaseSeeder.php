@@ -106,7 +106,6 @@ class DatabaseSeeder extends Seeder
 EOT
                 ,
                 'how_it_works_2' => <<<EOT
-Итоговая работа курса "продвинутый PHP" компании Mediasoft, ноябрь-декабрь 2018. <br>Автор: Платонов Антон<br>
 <b>Api-ресурсы</b>
 <small><b>Пользователи (менеджеры)</b>
 Login: POST, `%URL%/api/login` (parameters: login, password)  

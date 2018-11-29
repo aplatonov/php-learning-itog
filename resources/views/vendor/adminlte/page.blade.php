@@ -239,7 +239,7 @@
                     <ul class="list-unstyled">
                         <li>Итоговая работа Платонова А.В.</a></li>
                         <li>курс "Продвинутый PHP"</li>
-                        <li>компании Mediasoft</li>
+                        <li>компании Mediasoft, 2018</li>
                     </ul>
                 </div>
                 <!-- ./col -->
