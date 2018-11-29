@@ -202,7 +202,7 @@
                                         @endforeach
                                     </div>
                                     <div class="box-footer with-border">
-                                        <button type="button" class="btn btn-xs btn-info pull-right" onclick="addNewTask({{ min(array_column($marks->toArray(), 'id')) }})">Добавить пункт</button>
+                                        <button type="button" class="btn btn-xs btn-info pull-right" onclick="addNewTask({{ !empty($marks->toArray()) ? min(array_column($marks->toArray(), 'id')) : 1 }})">Добавить пункт</button>
                                     </div>
                                 </div>
                             </div>

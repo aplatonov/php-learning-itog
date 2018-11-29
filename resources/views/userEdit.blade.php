@@ -50,8 +50,8 @@
                                     @endif
                                 </div>
                                 <div class="col-xs-12 form-group{{ $errors->has('description') ? ' has-error' : '' }}">
-                                    <label for="description">Описание компании</label>
-                                    <textarea name="description" id="description" class="form-control" placeholder="Введите описание компании" rows="3">{{ $user->description }}</textarea>
+                                    <label for="description">Информация о менеджере</label>
+                                    <textarea name="description" id="description" class="form-control" placeholder="Введите информацию о менеджере" rows="3">{{ $user->description }}</textarea>
 
                                     @if ($errors->has('description'))
                                         <span class="text-danger">
@@ -69,7 +69,7 @@
                                     @endif
                                 </div>
                                 <div class="col-xs-12 form-group{{ $errors->has('contact_person') ? ' has-error' : '' }}">
-                                    <label for="contact_person">Контактное лицо</label>
+                                    <label for="contact_person">Полное имя</label>
                                     <input id="contact_person" type="text" class="form-control" name="contact_person" value="{{ $user->contact_person }}" required>
                                     @if ($errors->has('contact_person'))
                                         <span class="help-block">
