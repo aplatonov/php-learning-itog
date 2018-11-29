@@ -89,7 +89,12 @@
                                 @endif
                             </td>
                             <td class="text-center">
-                                {{ isset($project->start_date) ? 'c '.\Carbon\Carbon::parse($project->start_date)->format('d.m.Y') : '&nbsp;' }}{{ isset($project->finish_date) ? ' до '.\Carbon\Carbon::parse($project->birth_date)->format('d.m.Y') : '&nbsp;' }}
+                                {{ isset($project->start_date) ? 'c '.\Carbon\Carbon::parse($project->start_date)->format('d.m.Y') : ' ' }}{{ isset($project->finish_date) ? ' до '.\Carbon\Carbon::parse($project->birth_date)->format('d.m.Y') : ' ' }}
+                                <br>
+                                <small>пунктов:
+                                    <span class="badge label-success">{{ $project->projectMarks()->where('is_done', 1)->count() }}</span>/
+                                    <span class="badge label-default">{{ $project->projectMarks()->count() }}</span>
+                                </small>
                             </td>
                             <td class="text-center">{{ isset($project->speciality_id) ? $project->speciality->name : '' }}</td>
                             <td class="text-center">

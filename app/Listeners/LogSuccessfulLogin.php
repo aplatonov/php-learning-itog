@@ -6,6 +6,7 @@ use Illuminate\Auth\Events\Login;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 
 class LogSuccessfulLogin
@@ -33,6 +34,10 @@ class LogSuccessfulLogin
             $user->prev_login = $user->last_login;
             $user->last_login = \Carbon\Carbon::now();
             $user->save();
+
+            if (Cache::has('all_page_data')) {
+                Cache::forget('all_page_data');
+            }
         }
     }
 }

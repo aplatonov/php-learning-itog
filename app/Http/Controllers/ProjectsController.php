@@ -227,6 +227,8 @@ class ProjectsController extends Controller
             }      
         }
 
+        session(['fromPage' => \Route::currentRouteName()]);
+
         if (!empty($searchText)) {
             $projects = $projects
                 ->where('project_name', 'LIKE', '%' . $searchText . '%');

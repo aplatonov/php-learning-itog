@@ -86,8 +86,53 @@ class DatabaseSeeder extends Seeder
         DB::table('settings')->insert([
             [
                 'settings_name' => 'main',
-                'how_it_works_1' => 'Приложение для контроля выполнения задач в проектах',
-                'how_it_works_2' => 'Итоговая работа курса "продвинутый PHP" компании Mediasoft, ноябрь-декабрь 2018. Автор: Платонов Антон',
+                'how_it_works_1' => <<<EOT
+Приложение позволяет менеджерам проектов компании вести учет проектов, отмечая, при необходимости, выполнение задач по проекту.
+Регистрация пользователей свободная, но для получения доступа к функционалу необходимо активизация логина и подтверждение со стороны администратора.  
+Проекты имеют название и описание, категорию-направление, сроки начала и окончания, также список технологий проекта и другие атрибуты. Проекты можно публиковать в общем списке и тогда его просмотр станет доступным для других менеджеров.
+В приложении реализована система оповещений пользователей о событиях: просмотра инфомации о проекте, получении отзыва, заполнении формы обратной связи и других.<br>
+<b>Основные возможности</b>:
+<ul>
+<li> управление пользователями двух возможных ролей: администратор и менеджер (контактная информация, аватарка, файл с портфолио, блокировка/разблокировка, изменение роли)</li>
+<li> CRUD для проектов (названия. описание, направление, сроки начала и окончания, вложенная документация, технологии проекта, чек-лист задач по проекту)</li>
+<li> CRUDs для вспомогательных сущностей: технологии, направления, категории оповещений</li>
+<li> возможность оставлять отзывы о проекте в целом, о менеджере</li>
+<li> оповещения пользователей о некоторых видах событий (просмотр информации о проекте, получение отзыва и пр.)</li>
+<li> страница настроек приложения</li>
+<li> restApi для пользователей (Laravel/Passport реализация OAuth2),</li> 
+<li> restApi проектов</li>
+<li> эндпоинты для получения списка технологий, направлений</li>
+</ul>
+EOT
+                ,
+                'how_it_works_2' => <<<EOT
+Итоговая работа курса "продвинутый PHP" компании Mediasoft, ноябрь-декабрь 2018. <br>Автор: Платонов Антон<br>
+<b>Api-ресурсы</b>
+<small><b>Пользователи (менеджеры)</b>
+Login: POST, `%URL%/api/login` (parameters: login, password)  
+Register: POST, `%URL%/api/register` (parameters: login, email, password, password_confirmation, name, contact_person, phone)  
+List: GET, `%URL%/api/users` (headers: Authorization "Bearer %token%", Accept "application/json") (далее во всех ресурсах, требующих авторизации передаются эти заголовки)   
+Confirm user: GET, `%URL%/api/user/{id}/confirm` (headers...)  
+<b>Проекты</b>
+List: GET, `%URL%/api/projects` (headers...)   
+Show project: GET, `%URL%/api/projects/{id}` (headers...)  
+Create project: POST, `%URL%/api/projects` (headers..., parameters: project_name, description, speciality_id)  
+Delete project: DELETE, `%URL%/api/projects/{id}` (headers...)  
+Update project: PUT, `%URL%/api/projects/{id}` (headers..., parameters: project_name, description, speciality_id)
+<b>Технологии проектов</b>
+List: GET, `%URL%/api/techs` (headers...)
+<b>Специализации (направления проектов)</b>
+List: GET, `%URL%/api/specs` (headers...)
+<b>Чек-лист проекта</b>      
+List: GET, `%URL%/api/projects/{id}/marks` (headers...)  
+Mark as completed: PUT, `%URL%/api/projects/{id}/marks/{id_mark}/done` (headers..., parameters: is_done)
+
+<b>Пользователи по-умолчанию</b>
+admin/admin
+user/user
+</small>
+EOT
+                ,
                 'how_contact_us' => 'Связаться с нами очень легко',
                 'address' => 'ЮАР, Кейптаун, ул. Манделы, 25',
                 'phone' => '+12345678990',

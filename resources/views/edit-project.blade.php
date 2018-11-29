@@ -183,7 +183,7 @@
                                         <div class="form-group col-xs-12 data-checklist-row hidden">
                                             <div class="input-group col-xs-12">
                                                     <span class="input-group-addon">
-                                                        <input type="checkbox" name="mark_done[]">
+                                                        <input type="checkbox" id="mark_done" name="mark_done[]">
                                                     </span>
                                                 <input class="form-control" type="text" name="mark_name[]">
                                                 <input class="form-control" type="text" id="mark_finish_date" name="mark_finish_date[]">
@@ -202,7 +202,7 @@
                                         @endforeach
                                     </div>
                                     <div class="box-footer with-border">
-                                        <button type="button" class="btn btn-xs btn-info pull-right" onclick="addNewTask()">Добавить пункт</button>
+                                        <button type="button" class="btn btn-xs btn-info pull-right" onclick="addNewTask({{ min(array_column($marks->toArray(), 'id')) }})">Добавить пункт</button>
                                     </div>
                                 </div>
                             </div>
@@ -234,7 +234,7 @@
     </script>
 
     <script type="text/javascript">
-        function addNewTask() {
+        function addNewTask($min_id = 1) {
             $row = $(".data-checklist-row")
                 .clone()
                 .removeClass("hidden")
@@ -247,6 +247,11 @@
                     weekStart: 1,
                     autoClose: true
                 });
+            let $next_id = $min_id + +$(".data-checklist-row-visible").length;
+            $row.find("#mark_done")
+                .attr('id', "mark_done_" + $next_id)
+                .attr('name', "mark_done[" + $next_id + "]")
+                .val($next_id);
             $row.appendTo(".data-checklist-container");
         }
     </script>

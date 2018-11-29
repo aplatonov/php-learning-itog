@@ -27,14 +27,17 @@ cd php-learning-itog
 composer install
 ```
 
-#### Миграции и настройка storage
+#### Настройки приложения в .env
+Создайте БД, укажите доступ к ней в строках DB_, например
 ```
-php artisan migrate --seed
-php artisan storage:link
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=phpLearning
+DB_USERNAME=homestead
+DB_PASSWORD=secret
 ```
 
-#### Настройки приложения в .env
-Создайте БД, укажите доступ к ней в строках DB_***
 ```
 /* для работы без почтового сервера укажите */
 MAIL_DRIVER=log
@@ -45,6 +48,12 @@ MAIL_FROM_ADDRESS=admin@pmhelper.com
 ```
 php artisan key:generate
 php artisan config:cache
+```
+
+#### Миграции и настройка storage
+```
+php artisan migrate --seed
+php artisan storage:link
 ```
 
 #### Настройка работы api

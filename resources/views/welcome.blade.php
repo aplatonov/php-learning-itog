@@ -36,19 +36,19 @@
                         </ol>
                         <div class="carousel-inner">
                             <div class="item active">
-                                <img src="http://placehold.it/900x300/39CCCC/ffffff&text=PM helper!" alt="First slide">
+                                <img src="/img/pm1.png" alt="First slide">
                                 <div class="carousel-caption">
                                     
                                 </div>
                             </div>
                             <div class="item">
-                                <img src="http://placehold.it/900x300/3c8dbc/ffffff&text=Размещайте проекты!" alt="Second slide">
+                                <img src="/img/pm2.png"  alt="Second slide">
                                 <div class="carousel-caption">
                                     
                                 </div>
                             </div>
                             <div class="item">
-                                <img src="http://placehold.it/900x300/f39c12/ffffff&text=Отмечайте задачи!" alt="Third slide">
+                                <img src="/img/pm3.png" alt="Third slide">
                                 <div class="carousel-caption">
                                     
                                 </div>

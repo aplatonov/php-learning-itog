@@ -32,14 +32,6 @@ Route::post('/admin/users/role/{id}','AdminController@adminUser');
 Route::delete('/admin/users/delete/{id}','AdminController@deleteUser');
 Route::get('/register/confirm/{confirmationCode}','HomeController@unblockUserByMail');
 
-Route::get('/personal','PersonalController@showPersonal')->name('personal');
-Route::get('/userPersonal','PersonalController@showPersonal')->name('userPersonal'); 
-Route::delete('/personal/delete/{id}','PersonalController@destroyPerson');
-Route::post('/personal/info/{id}','PersonalController@showContactInfo');
-Route::get('/personal/add','PersonalController@addPerson'); 
-Route::post('/personal','PersonalController@storePerson'); 
-Route::get('/personal/{id}/edit','PersonalController@edit');
-
 Route::get('/projects','ProjectsController@showProjects')->name('projects');
 Route::get('/userProjects','ProjectsController@showProjects')->name('userProjects'); 
 Route::post('/projects/info/{id}','ProjectsController@showContactInfo');

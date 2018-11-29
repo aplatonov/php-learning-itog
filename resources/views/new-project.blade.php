@@ -30,6 +30,7 @@
                     {{ csrf_field() }}
                     <input type="hidden" name="isUpdate" value="0">
                     <input type="hidden" name="owner_id" value="{{ $form['owner_id'] }}">
+                    <input type="hidden" name="fromPage" value="{{ $form['fromPage'] }}">
                     <div class="box-body">
                         <div class="row">
                             <!-- left column -->
@@ -175,7 +176,7 @@
                                         <div class="form-group col-xs-12 data-checklist-row hidden">
                                             <div class="input-group col-xs-12">
                                                     <span class="input-group-addon">
-                                                        <input type="checkbox" name="mark_done[]">
+                                                        <input type="checkbox" id="mark_done" name="mark_done[]">
                                                     </span>
                                                 <input class="form-control" type="text" name="mark_name[]">
                                                 <input class="form-control" type="text" id="mark_finish_date" name="mark_finish_date[]">
@@ -221,13 +222,18 @@
                 .removeClass("hidden")
                 .removeClass("data-checklist-row")
                 .addClass("data-checklist-row-visible");
+            let $next_id = +$(".data-checklist-row-visible").length + 1;
             $row.find("#mark_finish_date")
-                .attr('id', "mark_finish_date_" + (+$(".data-checklist-row-visible").length + 1))
+                .attr('id', "mark_finish_date_" + $next_id)
                 .datepicker({
                     format: "yyyy-mm-dd",
                     weekStart: 1,
                     autoClose: true
                 });
+            $row.find("#mark_done")
+                .attr('id', "mark_done_" + $next_id)
+                .attr('name', "mark_done[" + $next_id + "]")
+                .val($next_id);
             $row.appendTo(".data-checklist-container");
         }
     </script>

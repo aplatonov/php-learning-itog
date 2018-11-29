@@ -67,7 +67,7 @@ class UserController extends Controller
         if (Auth::user()->confirmed == 1 && Auth::user()->valid == 1) {
             $company = Users::findOrFail($request->input('company_id'));
             $company_info = '<small>' . $company->contact_person . '<br>' . $company->phone . '<br><a href="mailto:' . $company->email . '">'.$company->email.'</a>' . '<br><a href="//' . $company->www . '" target="_blank">' . $company->www . '</a><br>'.
-                '<a href="' . '/users/edit/'.$company->id.'">' . 'Карточка компании' . '</a><small>';
+                '<a href="' . '/users/edit/'.$company->id.'">' . 'Карточка менеджера' . '</a><small>';
             $data = array( 'text' => 'success', 'company_info' => $company_info);
             $this->companyNote($request->input('company_id'), Auth::user()->id);
         } else {
